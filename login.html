@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+    <body>
+
+<!-- BLOCK 1 GOES HERE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://curktrkcwobraducbkzj.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_tTjEWEJtcNYqK95wamq3cw_nkLdW-A2";
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</scriptad>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -65,5 +75,37 @@
     form.addEventListener("submit", loginUser);
   }
 </script>
+       <form>
+   <!-- your login fields here -->
+</form>
+
+<!-- BLOCK 2 GOES HERE -->
+<script>
+async function loginUser(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+        alert("Login failed: " + error.message);
+    } else {
+        alert("Login successful!");
+        window.location.href = "index.html";
+    }
+}
+
+const form = document.querySelector("form");
+if (form) {
+    form.addEventListener("submit", loginUser);
+}
+</script>
+
+</body> 
     </body>
 </html>
