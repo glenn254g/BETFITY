@@ -28,5 +28,42 @@
                 </div>
             </div>
         </div>
+        <script src="https://esm.sh/@supabase/supabase-js"></script>
+
+<script>
+  // --- Your Supabase credentials ---
+  const SUPABASE_URL = "https://curktrkcwobraducbkzj.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_tTjEWEJtcNYqK95wamq3cw_nkLdW-A2";  // replace this only
+
+  // Create client
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // --- Login function (connects your frontend to database) ---
+  async function loginUser(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    // Supabase login
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      alert("Login failed: " + error.message);
+    } else {
+      alert("Login successful!");
+      window.location.href = "index.html"; // redirect after login
+    }
+  }
+
+  // Attach to your login form submit button
+  const form = document.querySelector("form");
+  if (form) {
+    form.addEventListener("submit", loginUser);
+  }
+</script>
     </body>
 </html>
